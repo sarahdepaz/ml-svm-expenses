@@ -77,3 +77,4 @@ ax1.pie(sums, explode=explode, labels=labels, autopct='%1.1f%%',
 ax1.axis('equal')
 plt.title('percentage of money spend on each category')
 plt.show()
+print("from docker")
