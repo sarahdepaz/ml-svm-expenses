@@ -120,3 +120,25 @@ plt.tick_params(labelsize=6)
 plt.legend(list(zip(*bars))[0], all_categories)
 plt.show()
 print("amount of money spent daily per city plot")
+
+daily_expenses = []
+all_dates = list(pd.date_range(min(df['date']), max(df['date']), freq='D'))
+cities = []
+for d in list(all_dates):
+    value = sum(df[df['date'] == d.date()]['eur'])
+    if value:
+        cities.append(df[df['date'] == d.date()]['city'].values[-1])
+        daily_expenses.append((d.date(), value))
+    else:
+        all_dates.remove(d)
+dates, sums = zip(*daily_expenses)
+
+ind = np.arange(len(all_dates))
+plt.bar(ind, sums, color='red', width=0.35)
+plt.xticks(ind, list(range(len(all_dates))))
+plt.title('daily amount of money spend')
+plt.xlabel('day number')
+plt.ylabel('amount of money in eur')
+plt.show()
+
+print("amount of money in eur plot")

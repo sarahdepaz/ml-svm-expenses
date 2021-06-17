@@ -4,4 +4,4 @@ WORKDIR /Users/sarahdepaz/Downloads/daily-expense-ml
 COPY requirements.txt requirements.txt
 RUN pip3 install -r requirements.txt
 COPY . .
-CMD ["python3", "./plot_model.py"]
+CMD ["python3", "./main_model.py"]
