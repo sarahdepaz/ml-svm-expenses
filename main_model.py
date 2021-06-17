@@ -121,8 +121,10 @@ regressor.fit(xtrain, ytrain)
 ypredopt = regressor.predict(xtest)
 
 plt.plot(ytest, color='green')
-plt.plot(ypred, color= 'navy')
+plt.plot(ypred, color='navy')
 plt.plot(ypredopt, color='red')
 plt.ylabel('predicted value in eur')
 plt.xlabel('days in the test set')
 plt.show()
+
+print("linear regression shown")
