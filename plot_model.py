@@ -77,4 +77,46 @@ ax1.pie(sums, explode=explode, labels=labels, autopct='%1.1f%%',
 ax1.axis('equal')
 plt.title('percentage of money spend on each category')
 plt.show()
-print("from docker")
+print("percentage of money spend on each category plot created")
+
+preferred_transport = []
+for desc, rows in df.groupby(['description']):
+    if all(i in ['travel', 'transport'] for i in rows['category']):
+        preferred_transport.append((sum(rows['eur'].values), desc))
+
+sums, labels = zip(*sorted(preferred_transport, reverse=True))
+explode = [0.1]*len(sums)
+
+fig1, ax1 = plt.subplots()
+ax1.pie(sums, explode=explode, labels=labels, autopct='%1.1f%%',
+        shadow=True, startangle=0)
+ax1.axis('equal')
+plt.title('preferred transport')
+plt.show()
+print("preferred transport plot created")
+
+all_categories = tuple(set(df['category']) - set('travel'))
+cities_daily = []
+for city, rows in df.groupby(['city']):
+    days = set(rows['date'].values)
+    days = (max(days) - min(days)).days + 1
+    descs = {desc: sum(rs['eur'].values)/days for desc, rs in rows[rows['category'] != 'travel'].groupby(['category'])}
+    cities_daily.append((city, tuple(descs[i] if i in descs else 0 for i in all_categories)))
+
+cities, sums = zip(*sorted(cities_daily, reverse=True, key=lambda t: sum(t[1])))
+sums = list(zip(*sums))
+width = 0.35
+ind = np.arange(len(cities))
+colors = ['maroon','c','orange','k','b','darkmagenta','g','m','yellow','r','peru','navy','cyan','plum','grey','teal','lime']
+bars = [plt.bar(ind, sums[0], width, color=colors[0])]
+for i in range(1, len(all_categories)):
+    bars.append(plt.bar(ind, sums[i], width, bottom=list(map(sum, zip(*sums[:i]))), color=colors[i]))
+
+plt.title('amount of money spent daily per city')
+
+plt.xticks(np.arange(len(cities)), cities)
+plt.yticks(np.arange(0, 26, 3))
+plt.tick_params(labelsize=6)
+plt.legend(list(zip(*bars))[0], all_categories)
+plt.show()
+print("amount of money spent daily per city plot")
