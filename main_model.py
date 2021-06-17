@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import datetime
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.compose import ColumnTransformer, make_column_transformer
-import statsmodels.formula.api as sm
+import statsmodels.api as sm
 from sklearn.model_selection import train_test_split as tts
 from sklearn.linear_model import LinearRegression
 
@@ -120,9 +120,9 @@ regressor.fit(xtrain, ytrain)
 
 ypredopt = regressor.predict(xtest)
 
-plt.plot(ytest, color = 'green')
-plt.plot(ypred, color = 'navy')
-plt.plot(ypredopt, color = 'red')
+plt.plot(ytest, color='green')
+plt.plot(ypred, color= 'navy')
+plt.plot(ypredopt, color='red')
 plt.ylabel('predicted value in eur')
 plt.xlabel('days in the test set')
 plt.show()
