@@ -123,7 +123,7 @@ ypredopt = regressor.predict(xtest)
 plt.plot(ytest, color='green')
 plt.plot(ypred, color='navy')
 plt.plot(ypredopt, color='red')
-plt.ylabel('predicted value in eur')
+plt.ylabel('predicted value in nis')
 plt.xlabel('days in the test set')
 plt.show()
 
